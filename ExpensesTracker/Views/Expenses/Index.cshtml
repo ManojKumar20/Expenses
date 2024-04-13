@@ -1,0 +1,21 @@
+﻿@model List<ExpenseModel>
+<table class="table table-bordered table-dark text-center">
+    <thead>
+        <tr>
+        <th>Expense</th>
+        <th>Amount</th>
+        <th>Spent On</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var obj in Model.OrderBy(u => u.ET_Date))
+    {
+        <tr>
+            <td>@obj.ET_Expense_Name</td>
+            <td>@obj.ET_Amount</td>
+            <td>@obj.ET_Date</td>
+      
+        </tr>
+    }
+    </tbody>
+</table>
