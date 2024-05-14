@@ -1,0 +1,81 @@
+﻿@model ExpenseModel
+<h2 class="text-center"> Update Expense</h2>
+<br />
+<br />
+<form method="post">
+    <input asp-for="ET_Id" hidden />
+    <div class="row g-1">
+        <div class="col-3 align-content-center">
+            <label for="expenseName" class="form-label text-center text-dark">Enter Expense Name :</label>
+        </div>
+        <div class="col-6">
+            <input asp-for="ET_Expense_Name" class="form-control border border-dark" id="expenseName" placeholder="Expense name">
+            <span asp-validation-for="ET_Expense_Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row g-1">
+        <div class="col-3 align-content-center">
+            <label for="expenseAmount" class="form-label text-dark">Enter Expense Amount :</label>
+        </div>
+        <div class="col-6">
+            <input asp-for="ET_Amount" class="form-control border border-dark" id="expenseAmount" placeholder="Enter Amount">
+            <span asp-validation-for="ET_Expense_Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row g-1">
+        <div class="col-3">
+            <label for="expenseDate" class="form-label align-content-center text-dark">Select Spent Date :</label>
+        </div>
+        <div class="col-6">
+            <input asp-for="ET_Date" class="form-control border border-dark" placeholder="Spent Date">
+            <span asp-validation-for="ET_Expense_Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row g-1">
+        <div class="col-3">
+            <label for="expenseRefund" class="form-label text-dark">Is the Expense Refunded :</label>
+        </div>
+        <div class="col-6">
+            <select id="inputState" asp-for="ET_RefundYN" class="form-select border border-dark">
+                <option selected value="N">No</option>
+                <option value="Y">Yes</option>
+            </select>
+            <span asp-validation-for="ET_Expense_Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row g-1">
+        <div class="col-3">
+            <label for="expenseComments" class="form-label text-dark">Comments :</label>
+        </div>
+        <div class="col-6">
+            <input asp-for="ET_Comments" class="form-control border border-dark" id="expenseComments" placeholder="Enter Comments">
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div class="row g-1">
+        <div class="col-6">
+            <button type="submit" class="btn btn-dark">Update Expense</button>
+        </div>
+        <div class="col-6">
+            <a asp-controller="Expenses" asp-action="ExpenseOperation" class="btn btn-dark">Go Back</a>
+        </div>
+    </div>
+</form>

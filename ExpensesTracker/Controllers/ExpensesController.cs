@@ -27,14 +27,21 @@ namespace ExpensesTracker.Controllers
             return View();
         }
 
-        public IActionResult Update()
+        [HttpPost]
+        public IActionResult Create(ExpenseModel exp)
         {
-            return View();
-        }
-
-        public IActionResult Delete()
-        {
-            return View();
+            try
+            {
+                _db.ExpenseTracker.Add(exp);
+                _db.SaveChanges();
+                TempData["success"] = "Expenses added successfully";
+                return RedirectToAction("ExpenseOperation");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "Failed to add expense";
+                return BadRequest();
+            }
         }
 
         public IActionResult Viewing()
@@ -43,12 +50,75 @@ namespace ExpensesTracker.Controllers
             return View(objExpenseList);
         }
 
-        [HttpPost]
-        public IActionResult Create(ExpenseModel exp)
+        public IActionResult Update()
         {
-            _db.ExpenseTracker.Add(exp);
-            _db.SaveChanges();
-            return RedirectToAction("ExpenseOperation");
+            List<ExpenseModel> objExpenseList = _db.ExpenseTracker.ToList();
+            return View(objExpenseList);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+            ExpenseModel? expenseModel = _db.ExpenseTracker.Find(id);
+            return View(expenseModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ExpenseModel exp)
+        {
+            try
+            {
+                _db.ExpenseTracker.Update(exp);
+                _db.SaveChanges();
+                TempData["success"] = "Expenses updated successfully";
+                return RedirectToAction("ExpenseOperation");
+            }
+            catch(Exception ex)
+            {
+                TempData["error"] = "Failed to update expense";
+                return BadRequest();
+            }
+        }
+
+        public IActionResult Delete()
+        {
+            List<ExpenseModel> objExpenseList = _db.ExpenseTracker.ToList();
+            return View(objExpenseList);
+        }
+
+        //public IActionResult Remove(int? id)
+        //{
+        //    if (id == 0 || id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ExpenseModel? expenseModel = _db.ExpenseTracker.Find(id);
+        //    return View(expenseModel);
+        //}
+
+        //[HttpPost,ActionName("Remove")]
+        public IActionResult Remove(int? id)
+        {
+            try
+            {
+                ExpenseModel? obj = _db.ExpenseTracker.Find(id);
+                if (obj == null)
+                {
+                    return NotFound();
+                }
+                _db.ExpenseTracker.Remove(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Expenses deleted successfully";
+                return RedirectToAction("ExpenseOperation");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "Failed to delete expense";
+                return BadRequest();
+            }
         }
     }
 }

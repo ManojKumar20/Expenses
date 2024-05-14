@@ -1,1 +1,30 @@
-﻿<h2> Delete Expenses</h2>
+﻿@model List<ExpenseModel>
+<h2 class="text-center">Delete Expenses </h2>
+<table class="table table-bordered table-dark text-center">
+    <thead>
+        <tr>
+            <th>Expense</th>
+            <th>Amount</th>
+            <th>Spent On</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.OrderBy(u => u.ET_Date))
+        {
+            <tr>
+                <td>@obj.ET_Expense_Name</td>
+                <td>@obj.ET_Amount</td>
+                <td>@obj.ET_Date</td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Expenses" asp-action="Remove" asp-route-id="@obj.ET_Id" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash3-fill"></i>Delete
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
